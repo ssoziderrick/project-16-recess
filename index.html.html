@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16s Tech Solutions — Reliable Technology Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --emerald: #0F3D2E;
+    --emerald-mid: #1a5c44;
+    --emerald-light: #2a7a5c;
+    --gold: #E6C88C;
+    --gold-deep: #c9a85a;
+    --charcoal: #1E1E1E;
+    --off-white: #F8F8F8;
+    --white: #ffffff;
+    --text-muted: #6b7280;
+    --card-bg: #ffffff;
+    --border: rgba(230,200,140,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--emerald); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(15,61,46,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(230,200,140,0.15);
+    padding: 0 5%;
+    height: 70px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.3s;
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .logo-icon::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.05) 4px, rgba(255,255,255,0.05) 5px);
+  }
+  .logo-icon span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; font-size: 16px;
+    color: var(--emerald); position: relative; z-index: 1;
+    letter-spacing: -1px;
+  }
+  .logo-text { line-height: 1; }
+  .logo-text .name { font-size: 15px; font-weight: 700; color: var(--white); letter-spacing: 0.5px; }
+  .logo-text .tagline { font-size: 9px; font-weight: 400; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8); text-decoration: none; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.5px; transition: color 0.2s; position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+    background: var(--gold); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    color: var(--emerald) !important; font-weight: 700 !important;
+    padding: 10px 22px; border-radius: 6px;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 25px rgba(230,200,140,0.4) !important; color: var(--emerald) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--gold); border-radius: 2px; transition: 0.3s; }
+
+  /* ===== SECTIONS BASE ===== */
+  section { padding: 100px 5%; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold-deep); margin-bottom: 16px;
+  }
+  .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold-deep); }
+  .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--emerald); line-height: 1.2; margin-bottom: 16px; }
+  .section-sub { font-size: 15px; color: var(--text-muted); max-width: 560px; line-height: 1.7; }
+  .centered { text-align: center; }
+  .centered .section-tag { justify-content: center; }
+  .centered .section-sub { margin: 0 auto; }
+
+  /* ===== HERO ===== */
+  #home {
+    min-height: 100vh;
+    background: var(--emerald);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 120px 5% 80px;
+  }
+  .hero-circuit {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(230,200,140,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230,200,140,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .hero-glow {
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(230,200,140,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: -200px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(42,122,92,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 680px; position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(230,200,140,0.1); border: 1px solid rgba(230,200,140,0.3);
+    padding: 8px 18px; border-radius: 50px; margin-bottom: 32px;
+    color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  }
+  .hero-badge .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.5; transform:scale(1.5); } }
+  .hero-title {
+    font-size: clamp(36px, 5.5vw, 68px); font-weight: 900;
+    color: var(--white); line-height: 1.1; margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-desc { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 40px; max-width: 500px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    color: var(--emerald); font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+    padding: 16px 32px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(230,200,140,0.4); }
+  .btn-secondary {
+    background: transparent; border: 1.5px solid rgba(255,255,255,0.3);
+    color: var(--white); font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    padding: 16px 32px; border-radius: 8px; text-decoration: none; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--gold); background: rgba(230,200,140,0.08); }
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 64px; padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat { }
+  .stat-num { font-size: 36px; font-weight: 900; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 4px; letter-spacing: 0.5px; }
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    width: 420px; z-index: 2; display: flex; flex-direction: column; gap: 16px;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(230,200,140,0.15);
+    border-radius: 14px; padding: 20px 24px;
+    backdrop-filter: blur(10px);
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  .hero-card:nth-child(2) { animation-delay: -1.5s; margin-left: 30px; }
+  .hero-card:nth-child(3) { animation-delay: -3s; margin-left: 15px; }
+  @keyframes floatCard { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+  .hero-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .hero-card-icon { width: 36px; height: 36px; background: linear-gradient(135deg, var(--gold), var(--gold-deep)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .hero-card-title { font-size: 13px; font-weight: 700; color: var(--white); }
+  .hero-card-sub { font-size: 11px; color: rgba(255,255,255,0.5); }
+  .hero-card-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+  .hero-card-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-deep)); border-radius: 2px; }
+
+  /* ===== TRUST BAND ===== */
+  .trust-band {
+    background: var(--charcoal);
+    padding: 28px 5%;
+    display: flex; align-items: center; justify-content: center; gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500; }
+  .trust-item svg { color: var(--gold); }
+
+  /* ===== ABOUT ===== */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-visual { position: relative; }
+  .about-img-wrap {
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-mid));
+    border-radius: 20px; padding: 60px 40px;
+    position: relative; overflow: hidden;
+  }
+  .about-img-wrap::before {
+    content: '16s';
+    position: absolute; bottom: -30px; right: -20px;
+    font-size: 160px; font-weight: 900; color: rgba(255,255,255,0.04);
+    line-height: 1; pointer-events: none;
+  }
+  .about-circuit {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(230,200,140,0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .about-badge-list { list-style: none; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 1; }
+  .about-badge-list li {
+    display: flex; align-items: center; gap: 14px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(230,200,140,0.2);
+    border-radius: 12px; padding: 16px 20px; color: var(--white);
+    font-size: 14px; font-weight: 500; transition: background 0.2s;
+  }
+  .about-badge-list li:hover { background: rgba(255,255,255,0.13); }
+  .about-badge-list .ico { font-size: 22px; }
+  .about-float-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+    border-radius: 14px; padding: 20px 24px; text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .about-float-badge .num { font-size: 32px; font-weight: 900; color: var(--emerald); line-height: 1; }
+  .about-float-badge .lbl { font-size: 10px; font-weight: 700; color: var(--emerald); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  .about-content .section-tag { margin-top: 0; }
+  .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .value-card {
+    border: 1px solid rgba(15,61,46,0.15); border-radius: 12px; padding: 20px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .value-card:hover { border-color: var(--gold); box-shadow: 0 4px 20px rgba(230,200,140,0.15); }
+  .value-card .vi { font-size: 24px; margin-bottom: 8px; }
+  .value-card h4 { font-size: 13px; font-weight: 700; color: var(--emerald); margin-bottom: 4px; }
+  .value-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===== SERVICES ===== */
+  #services { background: var(--off-white); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .service-card {
+    background: var(--white);
+    border: 1px solid rgba(15,61,46,0.1); border-radius: 16px;
+    padding: 32px 28px; position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  .service-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(15,61,46,0), rgba(15,61,46,0));
+    transition: background 0.3s;
+  }
+  .service-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(15,61,46,0.12); border-color: var(--emerald-light); }
+  .service-card:hover .service-icon-wrap { background: linear-gradient(135deg, var(--emerald), var(--emerald-mid)); }
+  .service-card:hover .service-icon-wrap svg { color: var(--gold); }
+  .service-num { position: absolute; top: 20px; right: 24px; font-size: 48px; font-weight: 900; color: rgba(15,61,46,0.04); line-height: 1; }
+  .service-icon-wrap {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: rgba(15,61,46,0.08); display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; transition: background 0.3s;
+  }
+  .service-icon-wrap svg { width: 26px; height: 26px; color: var(--emerald); transition: color 0.3s; }
+  .service-card h3 { font-size: 16px; font-weight: 700; color: var(--charcoal); margin-bottom: 10px; }
+  .service-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+  .service-card .learn-more {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 20px; font-size: 12px; font-weight: 700; color: var(--emerald);
+    text-transform: uppercase; letter-spacing: 0.5px; transition: gap 0.2s;
+  }
+  .service-card:hover .learn-more { gap: 10px; }
+
+  /* ===== TEAM ===== */
+  #team { background: var(--emerald); position: relative; overflow: hidden; }
+  #team .section-title { color: var(--white); }
+  #team .section-tag { color: var(--gold); }
+  #team .section-tag::before { background: var(--gold); }
+  #team .section-sub { color: rgba(255,255,255,0.6); }
+  .team-bg-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(230,200,140,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,200,140,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; position: relative; z-index: 1; }
+  .team-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(230,200,140,0.15);
+    border-radius: 18px; padding: 32px 24px; text-align: center;
+    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .team-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .team-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.1); border-color: rgba(230,200,140,0.3); }
+  .team-card:hover::before { transform: scaleX(1); }
+  .avatar {
+    width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 20px;
+    border: 3px solid rgba(230,200,140,0.3);
+    overflow: hidden; position: relative;
+    background: linear-gradient(135deg, var(--emerald-mid), var(--emerald-light));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .avatar-initials { font-size: 28px; font-weight: 800; color: var(--gold); }
+  .avatar .online { position: absolute; bottom: 4px; right: 4px; width: 12px; height: 12px; background: #22c55e; border-radius: 50%; border: 2px solid var(--emerald); }
+  .team-name { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .team-role { font-size: 12px; color: var(--gold); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .team-bio { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+  .team-socials { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .team-socials a {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(230,200,140,0.1); border: 1px solid rgba(230,200,140,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; text-decoration: none; transition: background 0.2s;
+  }
+  .team-socials a:hover { background: rgba(230,200,140,0.25); }
+
+  /* ===== PORTFOLIO ===== */
+  #portfolio { background: var(--white); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .portfolio-card {
+    border-radius: 16px; overflow: hidden; border: 1px solid rgba(15,61,46,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(15,61,46,0.12); }
+  .portfolio-img {
+    height: 200px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .portfolio-img .emoji-bg { font-size: 80px; position: absolute; opacity: 0.15; }
+  .portfolio-img .overlay {
+    position: absolute; inset: 0; background: rgba(15,61,46,0);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+  }
+  .portfolio-card:hover .overlay { background: rgba(15,61,46,0.6); }
+  .portfolio-img .view-btn {
+    background: var(--gold); color: var(--emerald); font-size: 12px; font-weight: 700;
+    padding: 10px 20px; border-radius: 6px; opacity: 0; transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+    letter-spacing: 0.5px;
+  }
+  .portfolio-card:hover .view-btn { opacity: 1; transform: scale(1); }
+  .portfolio-info { padding: 20px 24px; }
+  .portfolio-tag {
+    font-size: 10px; font-weight: 700; color: var(--gold-deep);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .portfolio-info h3 { font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+  .portfolio-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .portfolio-result {
+    margin-top: 12px; display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: #16a34a;
+  }
+
+  /* ===== WHY US ===== */
+  #why-us { background: var(--off-white); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px; }
+  .why-list { display: flex; flex-direction: column; gap: 20px; }
+  .why-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px; border-radius: 12px; background: var(--white);
+    border: 1px solid rgba(15,61,46,0.08); transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .why-item:hover { border-color: var(--emerald); box-shadow: 0 4px 20px rgba(15,61,46,0.08); }
+  .why-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--emerald), var(--emerald-mid)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .why-item h4 { font-size: 14px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+  .why-item p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .testimonial-stack { display: flex; flex-direction: column; gap: 20px; }
+  .testimonial {
+    background: var(--white); border-radius: 16px; padding: 28px;
+    border-left: 4px solid var(--gold); box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .testimonial p { font-size: 14px; color: var(--charcoal); line-height: 1.7; font-style: italic; margin-bottom: 16px; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .t-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, var(--emerald), var(--emerald-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--gold); }
+  .t-name { font-size: 13px; font-weight: 700; color: var(--charcoal); }
+  .t-role { font-size: 11px; color: var(--text-muted); }
+  .stars { color: var(--gold); font-size: 12px; margin-bottom: 12px; }
+
+  /* ===== CONTACT ===== */
+  #contact { background: var(--charcoal); position: relative; overflow: hidden; }
+  #contact .section-title { color: var(--white); }
+  #contact .section-tag { color: var(--gold); }
+  #contact .section-tag::before { background: var(--gold); }
+  #contact .section-sub { color: rgba(255,255,255,0.55); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; margin-top: 56px; }
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-icon { width: 48px; height: 48px; background: rgba(230,200,140,0.1); border: 1px solid rgba(230,200,140,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .contact-item h4 { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 4px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .contact-item p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .wa-btn {
+    display: flex; align-items: center; gap: 12px; margin-top: 12px;
+    background: #25D366; color: var(--white); text-decoration: none;
+    padding: 14px 24px; border-radius: 10px; font-size: 14px; font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
+  .contact-form { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 14px 16px; color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s, background 0.2s;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: var(--charcoal); }
+  .form-submit { width: 100%; }
+  .success-msg { display: none; background: rgba(34,197,94,0.1); border: 1px solid #22c55e; border-radius: 8px; padding: 14px; text-align: center; color: #22c55e; font-size: 14px; font-weight: 600; margin-top: 16px; }
+
+  /* ===== FOOTER ===== */
+  footer { background: #111; padding: 60px 5% 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .footer-about .logo-wrap { margin-bottom: 16px; }
+  .footer-about p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 280px; }
+  .footer-col h5 { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom { padding-top: 32px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-bottom .gold { color: var(--gold); }
+
+  /* ===== ANIMATIONS ===== */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* Mobile nav */
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .nav-links { 
+      display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0;
+      background: rgba(15,61,46,0.98); padding: 24px; gap: 20px;
+      border-bottom: 1px solid rgba(230,200,140,0.15);
+    }
+    .nav-links.open { display: flex; }
+    .hero-visual { display: none; }
+    .about-grid, .why-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+  @media (max-width: 600px) {
+    .services-grid, .team-grid, .portfolio-grid { grid-template-columns: 1fr; }
+    .about-values { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .trust-band { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="logo-wrap">
+    <div class="logo-icon"><span>16s</span></div>
+    <div class="logo-text">
+      <div class="name">16s Tech Solutions</div>
+      <div class="tagline">Powered by Precision</div>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-circuit"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Trusted IT Partner in Uganda</div>
+    <h1 class="hero-title">Reliable Technology<br>Solutions That <span class="accent">Power</span><br>Your Digital World.</h1>
+    <p class="hero-desc">From system repairs to full IT setups we deliver expert technology services that keep your business running, protected and ahead of the curve.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Get a Free Quote →</a>
+      <a href="#services" class="btn-secondary">Explore Services ↓</a>
+      <a href="#contact" class="btn-secondary" style="border-color:rgba(37,211,102,0.5); color:#25D366;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.376 0 0 5.373 0 11.984c0 2.11.554 4.193 1.606 6.01L0 24l6.163-1.587A12.003 12.003 0 0011.99 24C18.603 24 24 18.627 24 12.016 24 5.404 18.603 0 11.99 0zm0 21.99a9.97 9.97 0 01-5.08-1.382l-.364-.216-3.763.969.998-3.63-.237-.376A9.93 9.93 0 012.01 12.016c0-5.506 4.475-9.98 9.98-9.98s9.98 4.474 9.98 9.98c0 5.506-4.475 9.974-9.98 9.974z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Devices Repaired</div></div>
+      <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+      <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Rated Service</div></div>
+      <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Turnaround Time</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="hero-card-icon"></div>
+        <div><div class="hero-card-title">System Diagnostic</div><div class="hero-card-sub">Full hardware scan complete</div></div>
+      </div>
+      <div class="hero-card-bar"><div class="hero-card-fill" style="width:92%"></div></div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="hero-card-icon"></div>
+        <div><div class="hero-card-title">Repair Status</div><div class="hero-card-sub">3 jobs completed today</div></div>
+      </div>
+      <div class="hero-card-bar"><div class="hero-card-fill" style="width:75%"></div></div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="hero-card-icon"></div>
+        <div><div class="hero-card-title">Ubuntu Install</div><div class="hero-card-sub">Configuration 100% done</div></div>
+      </div>
+      <div class="hero-card-bar"><div class="hero-card-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAND -->
+<div class="trust-band">
+  <div class="trust-item">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    Certified Technicians
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Fast Turnaround
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    Experienced Team
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+    Satisfaction Guaranteed
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    On-Site & Remote Support
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual fade-up">
+      <div class="about-img-wrap">
+        <div class="about-circuit"></div>
+        <ul class="about-badge-list">
+          <li><span class="ico"></span> Mission Driven IT Excellence</li>
+          <li><span class="ico"></span> Data Privacy and Security First</li>
+          <li><span class="ico"></span> Rapid Response and Resolution</li>
+          <li><span class="ico"></span> Long Term Client Partnerships</li>
+          <li><span class="ico"></span> Industry Recognized Standards</li>
+        </ul>
+        <div class="about-float-badge">
+          <div class="num">1+</div>
+          <div class="lbl">Months Experience</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content fade-up">
+      <div class="section-tag">Who We Are</div>
+      <h2 class="section-title">Built on Trust,<br>Driven by Technology.</h2>
+      <p class="section-sub">16s Tech Solutions is a dedicated IT services company committed to delivering reliable, high quality technology solutions to individuals, small businesses and organizations across Uganda.</p>
+      <p style="font-size:14px; color:var(--text-muted); margin-top:16px; line-height:1.75;">We believe technology should work for you not the other way around. Our team of skilled technicians brings precision, professionalism and genuine care to every project, ensuring your systems run at peak performance.</p>
+      <div class="about-values">
+        <div class="value-card">
+          <div class="vi"></div>
+          <h4>Excellence</h4>
+          <p>We deliver nothing short of the best in every service we provide.</p>
+        </div>
+        <div class="value-card">
+          <div class="vi"></div>
+          <h4>Integrity</h4>
+          <p>Honest pricing, transparent communication, zero compromise.</p>
+        </div>
+        <div class="value-card">
+          <div class="vi"></div>
+          <h4>Innovation</h4>
+          <p>Staying current with the latest technologies and solutions.</p>
+        </div>
+        <div class="value-card">
+          <div class="vi"></div>
+          <h4>Client First</h4>
+          <p>Your satisfaction is the ultimate measure of our success.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="centered fade-up">
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">Expert IT Services<br>Tailored for You</h2>
+    <p class="section-sub">From hardware repairs to software solutions, we cover the full spectrum of technology needs with skill and precision.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">01</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.52 0 10-4.48 10-10"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <h3>Ubuntu Installations</h3>
+      <p>Professional Ubuntu Linux installation and configuration. We set up your system with all essential software, drivers and optimizations for maximum performance.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 8l2 2-2 2M11 12h4"/></svg>
+      </div>
+      <h3>Computer Repairs</h3>
+      <p>Comprehensive hardware and software repair services for laptops, desktops and workstations. We diagnose issues accurately and fix them fast.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h3>Servicing and Cleaning</h3>
+      <p>Deep cleaning of internal components fans, heatsinks and boards plus full servicing to extend your computer's lifespan and performance.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.1s">
+      <div class="service-num">04</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      </div>
+      <h3>Software Installations</h3>
+      <p>Installation and setup of all major software applications productivity suites, security tools, creative software and specialized business applications.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.2s">
+      <div class="service-num">05</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+      </div>
+      <h3>Product Key Activation</h3>
+      <p>Genuine activation of Windows, Microsoft Office and other licensed software. We ensure your products are properly activated with authentic license keys.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:0.3s">
+      <div class="service-num">06</div>
+      <div class="service-icon-wrap">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      </div>
+      <h3>Computer Maintenance</h3>
+      <p>Scheduled maintenance plans to keep your systems running optimally updates, security patches, performance tuning and preventive care on your schedule.</p>
+      <span class="learn-more">Learn More →</span>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="team-bg-grid"></div>
+  <div class="centered fade-up" style="position:relative;z-index:1;">
+    <div class="section-tag">The People</div>
+    <h2 class="section-title">Meet Our Expert Team</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);">Skilled, passionate and dedicated professionals committed to delivering exceptional IT services.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card fade-up">
+      <div class="avatar"><img src="ssozi.jpeg" alt="Ssozi Derrick" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"><div class="online"></div></div>
+      <div class="team-name">Ssozi Derrick</div>
+      <div class="team-role">Lead Technician </div>
+      <div class="team-bio">Expert in system diagnostics, hardware repair and Linux installations. Leads the team with 5+ years of hands on IT experience.</div>
+<div class="team-socials">
+  <a href="https://www.linkedin.com/in/ssozi-derrick-53177720b/overlay/about-this-profile/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BLtMRX1Y2RQCUGZOCGruiEA%3D%3D" title="LinkedIn">
+    <img src="linkedIn Icon.png" alt="LinkedIn" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="https://wa.me/256776931052" title="WhatsApp">
+    <img src="whatsapp icon.png" alt="WhatsApp" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="mailto:ssoziderrick1144@gmail.com" title="Email">
+    <img src="Gmail icon.png" alt="Email" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+</div>
+    </div>
+    <div class="team-card fade-up" style="transition-delay:0.1s">
+      <div class="avatar"><img src="blessing.jpeg" alt="Blessing Barbra" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"><div class="online"></div></div>
+      <div class="team-name">Blessing Barbra</div>
+      <div class="team-role">Software Specialist</div>
+      <div class="team-bio">Specializes in software installations, product key activations and system configuration. Known for her methodical and thorough approach.</div>
+      <div class="team-socials">
+  <a href="https://www.linkedin.com/in/barbra-blessing-5a4190388?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn">
+    <img src="linkedIn Icon.png" alt="LinkedIn" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="https://wa.me/256786420686" title="WhatsApp">
+    <img src="whatsapp icon.png" alt="WhatsApp" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="mailto:barbrablessing3@gmail.com" title="Email">
+    <img src="Gmail icon.png" alt="Email" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+</div>
+    </div>
+    <div class="team-card fade-up" style="transition-delay:0.2s">
+      <div class="avatar"><img src="harry.jpeg" alt="Harry Ndambire" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"><div class="online"></div></div>
+      <div class="team-name">Harry Ndambire</div>
+      <div class="team-role">Hardware Engineer</div>
+      <div class="team-bio">Deep expertise in hardware repair, computer servicing and physical maintenance. Handles complex motherboard and component level repairs.</div>
+      <div class="team-socials">
+  <a href="https://www.linkedin.com/in/ndambire-harry-4222203b0/overlay/about-this-profile/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BO9f2XHbRTHO%2B%2FfsscfWMwg%3D%3D" title="LinkedIn">
+    <img src="linkedIn Icon.png" alt="LinkedIn" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="https://wa.me/256789886952" title="WhatsApp">
+    <img src="whatsapp icon.png" alt="WhatsApp" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="mailto:ndambireharrry@gmail.com" title="Email">
+    <img src="Gmail icon.png" alt="Email" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+</div>
+    </div>
+    <div class="team-card fade-up" style="transition-delay:0.3s">
+      <div class="avatar"><img src="solomon .jpeg" alt="Solomon Musabe" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"><div class="online"></div></div>
+      <div class="team-name">Solomon Musabe</div>
+      <div class="team-role">Hardware Engineer</div>
+      <div class="team-bio">Client facing support specialist with expertise in computer maintenance, troubleshooting and preventive IT care for businesses.</div>
+       <div class="team-socials">
+  <a href="https://www.linkedin.com/in/solomon-musabe-5020303b0/overlay/about-this-profile/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BWCGOCF42SCSI1KXFrRAXcg%3D%3D" title="LinkedIn">
+    <img src="linkedIn Icon.png" alt="LinkedIn" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="https://wa.me/256778601619" title="WhatsApp">
+    <img src="whatsapp icon.png" alt="WhatsApp" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+  <a href="mailto:solomondaviesk25@gmail.com" title="Email">
+    <img src="Gmail icon.png" alt="Email" style="width:18px; height:18px; object-fit:contain;">
+  </a>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="fade-up">
+    <div class="section-tag">Our Work</div>
+    <h2 class="section-title">Projects and Service<br>Outcomes</h2>
+    <p class="section-sub">A snapshot of the work we're proud of real results for real clients.</p>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card fade-up">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#0F3D2E,#1a5c44)">
+        <span class="emoji-bg">🛄</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Computer Repair</div>
+        <h3>Dell Laptop Full Recovery</h3>
+        <p>Complete motherboard level repair, OS reinstallation and data recovery for a local business client.</p>
+        <div class="portfolio-result"> Restored in under 24 hours</div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up" style="transition-delay:0.1s">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#1a3d5a,#0f2d40)">
+        <span class="emoji-bg">🐧</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Ubuntu Installation</div>
+        <h3>10 Workstation Office Migration</h3>
+        <p>Migrated a small office from Windows to Ubuntu LTS with full network setup and staff onboarding.</p>
+        <div class="portfolio-result"> 60% reduction in licensing costs</div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up" style="transition-delay:0.2s">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#3d1a2e,#5a2a44)">
+        <span class="emoji-bg">🧹</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Deep Servicing</div>
+        <h3>Gaming PC Overheating Fix</h3>
+        <p>Full thermal paste replacement, fan cleaning and airflow optimization  dropped temps by 35°C.</p>
+        <div class="portfolio-result"> Performance boosted by 40%</div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up" style="transition-delay:0.1s">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#2a3d1a,#3a5a2a)">
+        <span class="emoji-bg">🧑‍💻</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Software Setup</div>
+        <h3>Office 365 Business Deployment</h3>
+        <p>Full Microsoft 365 installation, configuration and product key activation for an NGO with 20 users.</p>
+        <div class="portfolio-result"> All 20 seats activated and synced</div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up" style="transition-delay:0.2s">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#3d3a1a,#5a552a)">
+        <span class="emoji-bg">🔧</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Maintenance Plan</div>
+        <h3>Monthly IT Maintenance Retainer</h3>
+        <p>Ongoing monthly IT care for a Kampala-based SME updates, security scans and hardware checks.</p>
+        <div class="portfolio-result"> Zero downtime for 8 months</div>
+      </div>
+    </div>
+    <div class="portfolio-card fade-up" style="transition-delay:0.3s">
+      <div class="portfolio-img" style="background:linear-gradient(135deg,#3d1a3a,#5a2a55)">
+        <span class="emoji-bg">🧷</span>
+        <div class="overlay"><span class="view-btn">View Case Study</span></div>
+      </div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Activation Services</div>
+        <h3>School Computer Lab Activation</h3>
+        <p>Genuine Windows and Office activation for 30 computers at a secondary school done in one day.</p>
+        <div class="portfolio-result"> All systems fully licensed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="centered fade-up">
+    <div class="section-tag">Why Choose Us</div>
+    <h2 class="section-title">The 16s Tech Difference</h2>
+    <p class="section-sub">What sets us apart isn't just what we do it's how we do it.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-list">
+      <div class="why-item fade-up">
+        <div class="why-icon"></div>
+        <div>
+          <h4>Same Day Service Available</h4>
+          <p>Urgent repairs? We offer priority service with fast diagnosis and resolution to minimize your downtime.</p>
+        </div>
+      </div>
+      <div class="why-item fade-up" style="transition-delay:0.1s">
+        <div class="why-icon"></div>
+        <div>
+          <h4>Transparent, Fair Pricing</h4>
+          <p>No hidden fees. No surprises. We provide clear quotes before any work begins so you're always in control.</p>
+        </div>
+      </div>
+      <div class="why-item fade-up" style="transition-delay:0.2s">
+        <div class="why-icon"></div>
+        <div>
+          <h4>Precision Diagnostics</h4>
+          <p>We don't guess we test. Thorough diagnostics ensure we fix the root cause not just the symptoms.</p>
+        </div>
+      </div>
+      <div class="why-item fade-up" style="transition-delay:0.3s">
+        <div class="why-icon"></div>
+        <div>
+          <h4>After-Service Support</h4>
+          <p>Our relationship doesn't end when your computer leaves. We provide follow up support at no extra charge.</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-stack fade-up">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"16s Tech Solutions fixed my laptop in just 3 hours. The team was professional, explained everything clearly and the price was fair. I won't go anywhere else!"</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">AK</div>
+          <div>
+            <div class="t-name">Aisha Kibuuka</div>
+            <div class="t-role">Freelance Designer, Kampala</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"We hired 16s Tech to migrate our entire office to Ubuntu. The process was seamless, the team was knowledgeable and they trained our staff too. Highly recommended."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">JM</div>
+          <div>
+            <div class="t-name">James Muwanga</div>
+            <div class="t-role">Operations Manager, StartUp Hub</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"Reliable, fast and honest. They recovered data I thought was permanently lost and had my system running like new. 16s Tech Solutions are the real deal."</p>
+        <div class="testimonial-author">
+          <div class="t-avatar">FN</div>
+          <div>
+            <div class="t-name">Florence Nakato</div>
+            <div class="t-role">Small Business Owner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="centered fade-up">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">Let's Solve Your<br>Tech Challenges</h2>
+    <p class="section-sub">Ready to get started? Reach out for a free consultation or quote we respond within the hour.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <div class="contact-item">
+        <div class="contact-icon"><img src="Gmail icon.png" alt="Phone" style="width:24px; height:24px; object-fit:contain;"></div>
+        <div>
+          <h4>Email Us</h4>
+          <p>group16sixteen@gmail.com<br>group16sixteen@gmail.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+       <div class="contact-icon"><img src="phone icon.webp" alt="Phone" style="width:24px; height:24px; object-fit:contain;"></div>
+        <div>
+          <h4>Call / WhatsApp</h4>
+          <p>+256 757111321<br>+256 776931052</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="whatsapp icon.png" alt="Phone" style="width:24px; height:24px; object-fit:contain;"></div>
+        <div>
+          <h4>Our Location</h4>
+          <p>Kampala, Uganda<br>Available for on site visits</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><img src="location.jpg" alt="Phone" style="width:24px; height:24px; object-fit:contain;"></div>
+        <div>
+          <h4>Working Hours</h4>
+          <p>Monday – Saturday: 8AM – 7PM<br>Sunday: 10AM – 4PM</p>
+        </div>
+      </div>
+      <a href="https://wa.me/256776931052" class="wa-btn" target="_blank">
+        <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.376 0 0 5.373 0 11.984c0 2.11.554 4.193 1.606 6.01L0 24l6.163-1.587A12.003 12.003 0 0011.99 24C18.603 24 18.603 24 24 12.016 24 5.404 18.603 0 11.99 0zm0 21.99a9.97 9.97 0 01-5.08-1.382l-.364-.216-3.763.969.998-3.63-.237-.376A9.93 9.93 0 012.01 12.016c0-5.506 4.475-9.98 9.98-9.98s9.98 4.474 9.98 9.98c0 5.506-4.475 9.974-9.98 9.974z"/></svg>
+        Chat on WhatsApp Now
+      </a>
+    </div>
+    <div class="contact-form fade-up">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="ssozi" /></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="derrick" /></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="ssoziderrick1144@gmail.com" /></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+256776931052" /></div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select>
+          <option value="">Select a service...</option>
+          <option>Ubuntu Installation</option>
+          <option>Computer Repair</option>
+          <option>Servicing and Cleaning</option>
+          <option>Software Installation</option>
+          <option>Product Key Activation</option>
+          <option>Computer Maintenance</option>
+          <option>Other / General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your tech issue or what you need..."></textarea></div>
+      <button class="btn-primary form-submit" onclick="handleSubmit(event)">Send Message & Get Quote →</button>
+      <div class="success-msg" id="successMsg"> Thank you! We'll get back to you within the hour.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-about">
+      <a href="#home" class="logo-wrap" style="display:inline-flex; margin-bottom:16px;">
+        <div class="logo-icon"><span>16s</span></div>
+        <div class="logo-text">
+          <div class="name">16s Tech Solutions</div>
+          <div class="tagline">Powered by Precision</div>
+        </div>
+      </a>
+      <p>Reliable technology solutions that keep your systems running efficiently. Serving individuals, businesses and organizations across Uganda.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">Ubuntu Installations</a></li>
+        <li><a href="#services">Computer Repairs</a></li>
+        <li><a href="#services">Servicing and Cleaning</a></li>
+        <li><a href="#services">Software Installations</a></li>
+        <li><a href="#services">Product Key Activation</a></li>
+        <li><a href="#services">Maintenance Plans</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#portfolio">Our Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:group16sixteen@gmail.com">group16sixteen@gmail.com</a></li>
+        <li><a href="tel:+256757111321">+256 757 111 321</a></li>
+        <li><a href="#">Kampala, Uganda</a></li>
+        <li><a href="https://wa.me/256776931052">WhatsApp Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span class="gold">16s Tech Solutions</span>. All rights reserved.</p>
+    <p style="color:rgba(255,255,255,0.2); font-size:11px;">Powered by Precision · Built with Excellence</p>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  // Close on link click
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  }));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.height = window.scrollY > 50 ? '60px' : '70px';
+  });
+
+  // Intersection Observer for animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = 'Sending...';
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      btn.textContent = ' Message Sent!';
+      btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+      document.getElementById('successMsg').style.display = 'block';
+    }, 1500);
+  }
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
